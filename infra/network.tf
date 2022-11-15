@@ -22,6 +22,8 @@ resource "azurerm_subnet" "aks-subnet" {
   ]
 }
 
+
+
 resource "azurerm_subnet" "aks-pod-subnet" {
   address_prefixes     = ["10.240.4.0/22"]
   name                 = "pod-subnet"
@@ -50,4 +52,18 @@ resource "azurerm_subnet" "private-link-subnet" {
   depends_on = [
     azurerm_virtual_network.aks-vnet,
   ]
+}
+
+# Create a Private DNS Zone
+resource "azurerm_private_dns_zone" "database-private-dns" {
+  name = "privatelink.database.windows.net"
+  resource_group_name = azurerm_resource_group.aks-rg.name
+}
+
+# Link the Private DNS Zone with the VNET
+resource "azurerm_private_dns_zone_virtual_network_link" "database-private-dns-link" {
+  name = azurerm_virtual_network.aks-vnet.name
+  resource_group_name = azurerm_resource_group.aks-rg.name
+  private_dns_zone_name = azurerm_private_dns_zone.database-private-dns.name
+  virtual_network_id = azurerm_virtual_network.aks-vnet.id
 }

@@ -23,6 +23,21 @@ variable "aks_admin_group_object_ids" {
   default = ["bcf60be2-0a6d-4dc1-912a-52d829bda22c"]
 }
 
+variable "sql_admin_group_object_id" {
+  type    = string
+  default = "bcf60be2-0a6d-4dc1-912a-52d829bda22c"
+}
+
+variable "sql_admin_group_name" {
+  type    = string
+  default = "DANIEM AKS ADMINS"
+}
+
+variable "sql_server_name" {
+  type    = string
+  default = "sample-sql-server-instance"
+}
+
 variable "aks_subnet_name" {
   type    = string
   default = "aks-subnet"

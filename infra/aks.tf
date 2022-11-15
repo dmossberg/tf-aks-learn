@@ -19,7 +19,7 @@ resource "azurerm_role_assignment" "aks_to_acr" {
 resource "azurerm_kubernetes_cluster" "aks" {
   api_server_authorized_ip_ranges = ["${chomp(data.http.myip.response_body)}/32"]
   azure_policy_enabled            = true
-  dns_prefix                      = "aks-public-dns"
+  dns_prefix                      = "${var.aks_name}-dns"
   local_account_disabled          = true
   location                        = var.region
   name                            = var.aks_name
@@ -27,6 +27,11 @@ resource "azurerm_kubernetes_cluster" "aks" {
   sku_tier                        = "Free"
   oidc_issuer_enabled             = true 
   workload_identity_enabled       = true
+  automatic_channel_upgrade       = "patch"
+  
+  tags = {
+    Environment = "Non-Prod"
+  }
   
   azure_active_directory_role_based_access_control {
     admin_group_object_ids = ["bcf60be2-0a6d-4dc1-912a-52d829bda22c"]
