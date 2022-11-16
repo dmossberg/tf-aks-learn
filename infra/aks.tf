@@ -34,9 +34,9 @@ resource "azurerm_kubernetes_cluster" "aks" {
   }
   
   azure_active_directory_role_based_access_control {
-    admin_group_object_ids = ["bcf60be2-0a6d-4dc1-912a-52d829bda22c"]
+    admin_group_object_ids = var.aks_admin_group_object_ids
     managed                = true
-    tenant_id              = "72f988bf-86f1-41af-91ab-2d7cd011db47"
+    tenant_id              = var.tenant_id
   }
 
   network_profile {

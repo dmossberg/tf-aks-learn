@@ -48,8 +48,8 @@ resource "azurerm_private_endpoint" "sql-private-endpoint" {
 
 # Create a private DNS A Record for the SQL Server
 resource "azurerm_private_dns_a_record" "sql-private-dns" {
-  name                = "sql-private-dns"
-  zone_name           = "privatelink.database.windows.net"
+  name                = lower(azurerm_mssql_server.sample-sql-server.name)
+  zone_name           = azurerm_private_dns_zone.database-private-dns.name
   resource_group_name = azurerm_resource_group.aks-rg.name
   ttl                 = 300
   records             = [azurerm_private_endpoint.sql-private-endpoint.private_service_connection[0].private_ip_address]
