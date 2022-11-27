@@ -35,7 +35,7 @@ variable "sql_admin_group_name" {
 
 variable "sql_server_name" {
   type    = string
-  default = "sample-sql-server-instance"
+  default = "mssql-server"
 }
 
 variable "aks_subnet_name" {
@@ -53,4 +53,7 @@ variable "acr_name" {
   default = "dockerforall"
 }
 
-
+variable "app_name" {
+  type    = string
+  default = "northwind-app"
+}

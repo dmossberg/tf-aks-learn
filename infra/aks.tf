@@ -1,5 +1,9 @@
+# data "http" "myip" {
+#   url = "http://ipv4.icanhazip.com"
+# }
+
 data "http" "myip" {
-  url = "http://ipv4.icanhazip.com"
+  url = "https://api.ipify.org/"
 }
 
 data "azurerm_container_registry" "acr" {
